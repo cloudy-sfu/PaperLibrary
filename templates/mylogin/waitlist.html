@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+{% include 'clixove_org/header.html' %}
+<body>
+{% include 'clixove_org/navigator.html' %}
+<div class="container-md">
+
+<div class="row">
+    <legend class="mt-4">Admission</legend>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form action="/mylogin/admit/" method="post">
+            <table class="table">
+                <caption class="caption-top">New Users</caption>
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">group</th>
+                    <th scope="col">description</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for x in NewUserTable %}
+                    <tr>
+                        <td>
+                            <label>
+                                <input class="form-check-input" type="checkbox" name="tasks-index"
+                                       value="{{ x.id }}" />
+                            </label>
+                        </td>
+                        <td>{{ x.group.name }}</td>
+                        <td>{{ x.bio | linebreaks}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <input type="submit" name="action" value="Admit" class="btn btn-outline-success">
+            <input type="submit" name="action" value="Upgrade" class="btn btn-outline-success">
+            <input type="submit" name="action" value="Reject" class="btn btn-outline-danger">
+            <input type="reset" value="Clear" class="btn btn-outline-primary">
+        </form>
+        <div class="mt-2">
+            <button onclick="check_all('tasks-index')" class="btn btn-outline-primary">
+                All
+            </button>
+        </div>
+    </div>
+</div>
+
+</div>
+{% include 'clixove_org/copyright.html' %}
+</body>
+</html>

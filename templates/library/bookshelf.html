@@ -1,0 +1,73 @@
+<script>
+    function check_all(class_name) {
+        const cbs = document.getElementsByName(class_name);
+        cbs.forEach(
+            (cb) => {
+                cb.checked = 'checked';
+            }
+        );
+    }
+</script>
+
+<form action="/library/change-paper" method="post">
+    <div style="overflow-x: auto">
+        <table class="table table-borderless">
+            <caption class="caption-top">Documents</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Project</th>
+                    <th>Name</th>
+                    <th>Size</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for paper in Papers %}
+                <tr>
+                    <td><label>
+                        <input type="checkbox" class="form-check-input" name="paper" value="{{ paper.id }}" />
+                        </label>
+                    </td>
+                    <td>
+                        {{ paper.project }}
+                    </td>
+                    <td>
+                        <a href="{{ paper.file.url }}" style="text-decoration: none;" class="text-dark">
+                            {{ paper.file.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {{ paper.file.size | filesizeformat }}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <input type="reset" value="Clear" class="btn btn-outline-primary mb-1">
+    <input type="button" onclick="check_all('paper')" value="Check All"
+        class="btn block-center btn-outline-primary mb-1">
+    <input type="submit" name="action" value="Delete" class="btn btn-outline-danger mb-1">
+    <a type="button" class="btn btn-outline-success mb-1" data-bs-toggle="modal" data-bs-target="#moveTo">
+        Move
+    </a>
+
+<!-- Modal -->
+<div class="modal fade" id="moveTo" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="newProjectLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="newProjectLabel">Move To</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+        <div class="modal-body">
+            {{ MoveTo.as_p }}
+        </div>
+        <div class="modal-footer">
+            <input type="submit" name="action" value="Move" class="btn btn-outline-success">
+        </div>
+    </div>
+  </div>
+</div>
+
+</form>
