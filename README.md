@@ -1,4 +1,4 @@
-# ClixoveLibrary
+# Clixove Library
 A Personal Academic Paper Library
 
 ![](https://img.shields.io/badge/dependencies-Django%203.1.5-blue)
